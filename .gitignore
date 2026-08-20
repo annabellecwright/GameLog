@@ -1,0 +1,11 @@
+.env
+.env.local
+node_modules/
+.DS_Store
+*.log
+
+# Collection exports stay local. A Gameye CSV carries what you paid and what
+# each item is worth -- none of which belongs in a public repo. The importer
+# reads it from here; only the pricing-free collection.json gets committed.
+data/*.csv
+

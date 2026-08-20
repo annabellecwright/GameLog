@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AnnabelleChimpton's GameLog</title>
+    <link>https://annabellechimpton.github.io/GameLog/</link>
+    <description>Welcome to my game collection! These are all of the physical copies of games I currently own. I also developed this site, and it's open source if you'd like to copy it and use it yourself :)</description>
+    <atom:link href="https://annabellechimpton.github.io/GameLog/feed.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Wed, 19 Aug 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Writing my first update!</title>
+      <link>https://annabellechimpton.github.io/GameLog/?view=log#log-2026-08-19-w</link>
+      <guid isPermaLink="false">gamelog:2026-08-19-w</guid>
+      <pubDate>Wed, 19 Aug 2026 00:00:00 GMT</pubDate>
+      <description>I have recently added my collection this site :) This is my first update!</description>
+    </item>
+  </channel>
+</rss>

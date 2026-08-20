@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GameLog manager</title>
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="dark light">
+<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+</head>
+<body class="mg-body">
+
+<header class="mg-top">
+  <div class="mg-top__bar">
+    <div>
+      <h1 class="mg-top__title">Manager</h1>
+      <p class="mg-top__sub">Editing the files in <code>data/</code></p>
+    </div>
+    <div class="mg-top__actions">
+      <span id="dirty" class="mg-dirty" hidden>unsaved changes</span>
+      <button id="save" class="cmp__go" type="button" disabled>Save</button>
+      <button id="publish" class="pillbutton" type="button">Publish…</button>
+      <a class="pillbutton" href="index.html" target="_blank" rel="noopener">View site ↗</a>
+      <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch colour theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.2"></circle>
+          <g class="rays">
+            <line x1="12" y1="1.8" x2="12" y2="4"></line>
+            <line x1="12" y1="20" x2="12" y2="22.2"></line>
+            <line x1="1.8" y1="12" x2="4" y2="12"></line>
+            <line x1="20" y1="12" x2="22.2" y2="12"></line>
+            <line x1="4.6" y1="4.6" x2="6.2" y2="6.2"></line>
+            <line x1="17.8" y1="17.8" x2="19.4" y2="19.4"></line>
+            <line x1="4.6" y1="19.4" x2="6.2" y2="17.8"></line>
+            <line x1="17.8" y1="6.2" x2="19.4" y2="4.6"></line>
+          </g>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1Z"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <nav class="views" id="mg-tabs" aria-label="Sections">
+    <button class="viewtab" type="button" data-tab="lists" aria-current="true">Lists</button>
+    <button class="viewtab" type="button" data-tab="games">Games</button>
+    <button class="viewtab" type="button" data-tab="hardware">Hardware</button>
+    <button class="viewtab" type="button" data-tab="updates">Updates</button>
+    <button class="viewtab" type="button" data-tab="profile">Profile</button>
+    <button class="viewtab" type="button" data-tab="site">Site</button>
+  </nav>
+</header>
+
+<p id="mg-status" class="mg-status" hidden></p>
+
+<main class="mg-main">
+  <section id="tab-lists" class="mg-tab"></section>
+  <section id="tab-games" class="mg-tab" hidden></section>
+  <section id="tab-hardware" class="mg-tab" hidden></section>
+  <section id="tab-updates" class="mg-tab" hidden></section>
+  <section id="tab-profile" class="mg-tab" hidden></section>
+  <section id="tab-site" class="mg-tab" hidden></section>
+</main>
+
+<!-- Offline / published-site fallback -->
+<div id="mg-offline" class="mg-offline" hidden>
+  <div class="mg-offline__card">
+    <h2 class="cmp__title">The manager only runs locally</h2>
+    <p class="cmp__lede">
+      This page edits the files in <code>data/</code>, which means it needs a
+      server on your own machine that can write to them. A published GameLog is
+      static files on someone else's host. There is nothing there to save to,
+      which is also why nobody visiting your site can change it.
+    </p>
+    <p class="lists__how">Run it locally:</p>
+    <pre class="lists__code"><code>npm run manage</code></pre>
+    <p class="cmp__blurb">Then open the address it prints.</p>
+  </div>
+</div>
+
+<dialog id="publisher" class="mg-picker" aria-label="Publish your changes">
+  <div class="mg-pub">
+    <h2 class="mg-card__title">Publish</h2>
+    <p class="mg-hint" id="pub-where"></p>
+    <div id="pub-body"></div>
+    <label class="mg-field">
+      <span class="mg-field__label">Describe this change (optional)</span>
+      <input id="pub-message" class="mg-input" type="text" placeholder="Update collection">
+    </label>
+    <div class="mg-pub__acts">
+      <button id="pub-cancel" class="pillbutton" type="button">Cancel</button>
+      <button id="pub-go" class="cmp__go" type="button">Commit and push</button>
+    </div>
+    <p class="mg-status" id="pub-status" hidden></p>
+  </div>
+</dialog>
+
+<dialog id="picker" class="mg-picker" aria-label="Find a game">
+  <form method="dialog" class="mg-picker__head">
+    <input id="picker-input" class="cmp__input" type="text" autocomplete="off"
+           spellcheck="false" placeholder="Search…" aria-label="Search for a game">
+    <button class="pillbutton" value="cancel" type="submit">Close</button>
+  </form>
+  <p id="picker-hint" class="mg-picker__hint"></p>
+  <div id="picker-results" class="mg-picker__results"></div>
+</dialog>
+
+<script src="assets/js/manage.js" type="module"></script>
+</body>
+</html>

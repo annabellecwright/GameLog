@@ -1,0 +1,21 @@
+{
+  "title": null,
+  "tagline": null,
+  "siteUrl": "https://annabellechimpton.github.io/GameLog",
+  "accent": "#f0a04b",
+  "defaultSort": "title",
+  "showHardware": true,
+  "profile": {
+    "name": "AnnabelleChimpton",
+    "photo": "assets/profile/avatar.png",
+    "about": "Welcome to my game collection! These are all of the physical copies of games I currently own. I also developed this site, and it's open source if you'd like to copy it and use it yourself :)",
+    "links": [
+      {
+        "label": "Twitch",
+        "url": "https://twitch.tv/AnnabelleChimpton"
+      }
+    ]
+  },
+  "friends": [],
+  "footer": "Built with [GameLog](https://github.com/AnnabelleChimpton/GameLog). Cover art and descriptions from [IGDB](https://www.igdb.com)."
+}

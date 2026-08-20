@@ -1,0 +1,26 @@
+{
+  "lists": [
+    {
+      "id": "looking-for",
+      "name": "Looking for",
+      "description": null,
+      "items": [
+        {
+          "title": "Shrek SuperSlam",
+          "platform": "Nintendo GameCube",
+          "year": 2005,
+          "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/co2d2u.jpg",
+          "description": "Shrek SuperSlam is a fighting video game featuring characters from the Shrek series of films.",
+          "genres": [
+            "Fighting"
+          ],
+          "developer": "Shaba Games",
+          "publisher": "Activision",
+          "igdbId": 10628,
+          "note": "I want this awesome fighting game"
+        }
+      ],
+      "wants": true
+    }
+  ]
+}

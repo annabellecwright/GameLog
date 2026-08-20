@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="GameLog" href="feed.xml">
+<meta name="color-scheme" content="dark light">
+
+<!-- gamelog:meta: rewritten from data/config.json when you save in the manager.
+     Crawlers don't run JavaScript, so a shared link's preview card has to live
+     in the html itself. Edit config.json rather than these lines. -->
+<title>AnnabelleChimpton's GameLog</title>
+<meta name="description" content="Welcome to my game collection! These are all of the physical copies of games I currently own. I also developed this site, and it's open source if you'd like to copy it and use it yourself :)">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="AnnabelleChimpton's GameLog">
+<meta property="og:description" content="Welcome to my game collection! These are all of the physical copies of games I currently own. I also developed this site, and it's open source if you'd like to copy it and use it yourself :)">
+<meta property="og:image" content="https://annabellechimpton.github.io/GameLog/assets/profile/avatar.png">
+<meta name="twitter:card" content="summary">
+<meta property="og:url" content="https://annabellechimpton.github.io/GameLog/">
+<!-- /gamelog:meta -->
+</head>
+<body>
+
+<a class="skip-link" href="#view-shelf">Skip to the collection</a>
+
+<!-- Who this is. Scrolls away; the controls below stay. -->
+<header class="hero" id="hero"></header>
+
+<div class="masthead">
+  <div class="masthead__bar">
+    <nav class="views" id="views" aria-label="Views">
+      <button class="viewtab" type="button" data-view="shelf" aria-current="true">Shelf</button>
+      <button class="viewtab" type="button" data-view="timeline">Timeline</button>
+      <button class="viewtab" type="button" data-view="lists">Lists</button>
+      <button class="viewtab" type="button" data-view="log">Log</button>
+      <button class="viewtab" type="button" data-view="stats">Stats</button>
+      <button class="viewtab" type="button" data-view="compare">Compare</button>
+      <button class="viewtab" type="button" data-view="following">Following</button>
+    </nav>
+
+    <div class="masthead__tools">
+      <div class="search">
+        <svg class="search__icon" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
+        </svg>
+        <input
+          id="search"
+          class="search__input"
+          type="search"
+          placeholder="Search games…"
+          aria-label="Search games by title, developer, publisher or genre"
+          autocomplete="off"
+          spellcheck="false">
+        <kbd class="search__hint">/</kbd>
+      </div>
+
+      <button id="filters-toggle" class="pillbutton tools__toggle" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <line x1="4" y1="7" x2="20" y2="7"></line>
+          <line x1="7" y1="12" x2="17" y2="12"></line>
+          <line x1="10" y1="17" x2="14" y2="17"></line>
+        </svg>
+        <span>Filter</span>
+        <span class="tools__dot" id="filters-dot" hidden></span>
+      </button>
+
+      <div class="tools__selects" id="tool-selects">
+      <label class="select">
+        <span class="select__label">Sort</span>
+        <select id="sort" aria-label="Sort games">
+          <option value="title">Name (A-Z)</option>
+          <option value="-title">Name (Z-A)</option>
+          <option value="year">Year (oldest)</option>
+          <option value="-year">Year (newest)</option>
+          <option value="-added">Recently added</option>
+          <option value="-metacritic">Highest rated</option>
+        </select>
+      </label>
+
+      <label class="select select--status">
+        <span class="select__label">Status</span>
+        <select id="status" aria-label="Filter by play status">
+          <option value="all">Any status</option>
+          <option value="unplayed">Not started</option>
+          <option value="playing">Playing</option>
+          <option value="beaten">Beaten</option>
+          <option value="dropped">Dropped</option>
+        </select>
+      </label>
+
+      <label class="select select--condition">
+        <span class="select__label">Condition</span>
+        <select id="condition" aria-label="Filter by condition">
+          <option value="all">Any condition</option>
+        </select>
+      </label>
+      </div>
+
+      <button id="theme-toggle" class="icon-button" type="button"
+              aria-label="Switch colour theme" title="Switch colour theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.2"></circle>
+          <g class="rays">
+            <line x1="12" y1="1.8" x2="12" y2="4"></line>
+            <line x1="12" y1="20" x2="12" y2="22.2"></line>
+            <line x1="1.8" y1="12" x2="4" y2="12"></line>
+            <line x1="20" y1="12" x2="22.2" y2="12"></line>
+            <line x1="4.6" y1="4.6" x2="6.2" y2="6.2"></line>
+            <line x1="17.8" y1="17.8" x2="19.4" y2="19.4"></line>
+            <line x1="4.6" y1="19.4" x2="6.2" y2="17.8"></line>
+            <line x1="17.8" y1="6.2" x2="19.4" y2="4.6"></line>
+          </g>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1Z"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="masthead__nav">
+    <nav class="filters" id="filters" aria-label="Filter by platform">
+      <div class="chips" id="platform-chips" role="tablist"></div>
+    </nav>
+
+    <div class="quickacts">
+      <button id="notes-toggle" class="pillbutton" type="button" aria-pressed="false"
+              title="Show only games with a personal note">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 4h11l4 4v12H5z"></path><path d="M15 4v5h5"></path>
+        </svg>
+        <span>Notes</span>
+      </button>
+      <button id="dice" class="pillbutton pillbutton--accent" type="button"
+              title="Pick something at random from what's showing">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3.5" y="3.5" width="17" height="17" rx="4"></rect>
+          <circle cx="8.5" cy="8.5" r="1.4" fill="currentColor" stroke="none"></circle>
+          <circle cx="15.5" cy="15.5" r="1.4" fill="currentColor" stroke="none"></circle>
+          <circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"></circle>
+        </svg>
+        <span>Surprise me</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="statline" id="statline">
+    <p id="count" class="statline__count" aria-live="polite"></p>
+    <button id="clear" class="link-button" type="button" hidden>Clear filters</button>
+  </div>
+
+  <div class="progress" id="progress" hidden>
+    <div class="progress__track"><div class="progress__fill" id="progress-fill"></div></div>
+    <p class="progress__text" id="progress-text"></p>
+  </div>
+
+  <!-- Shelf -->
+  <section id="view-shelf" class="view">
+    <div id="grid" class="shelf" aria-label="Games"></div>
+    <p id="empty" class="empty" hidden>
+      <strong>Nothing matches that.</strong>
+      <span>Try a different search, or clear the filters.</span>
+    </p>
+    <section id="hardware-section" class="hardware" hidden>
+      <h2 class="hardware__heading">Hardware</h2>
+      <div id="hardware-grid" class="hardware__grid"></div>
+    </section>
+  </section>
+
+  <!-- Timeline -->
+  <section id="view-timeline" class="view" hidden></section>
+
+  <!-- Lists -->
+  <section id="view-lists" class="view" hidden></section>
+
+  <!-- Log -->
+  <section id="view-log" class="view" hidden></section>
+
+  <!-- Stats -->
+  <section id="view-stats" class="view" hidden></section>
+
+  <!-- Compare -->
+  <section id="view-compare" class="view" hidden>
+    <div class="cmp">
+      <div class="cmp__intro">
+        <h2 class="cmp__title">Put two shelves side by side</h2>
+        <p class="cmp__lede">
+          Every GameLog publishes its collection openly, so this page can read
+          somebody else's directly. No account, nothing in between. Paste the
+          address of any GameLog site to see what you share and what you're missing.
+        </p>
+      </div>
+
+      <form class="cmp__form" id="cmp-form">
+        <input
+          id="cmp-url"
+          class="cmp__input"
+          type="text"
+          placeholder="username.github.io/GameLog  ·  or  username/GameLog"
+          aria-label="Address of a GameLog to compare against"
+          autocomplete="off"
+          spellcheck="false">
+        <button class="cmp__go" type="submit">Compare</button>
+      </form>
+
+      <div class="cmp__friends" id="cmp-friends" hidden></div>
+      <p class="cmp__status" id="cmp-status" hidden></p>
+      <div id="cmp-output"></div>
+    </div>
+  </section>
+
+  <!-- Following -->
+  <section id="view-following" class="view" hidden>
+    <div class="cmp">
+      <div class="cmp__intro">
+        <h2 class="cmp__title">Shelves you follow</h2>
+        <p class="cmp__lede">
+          The latest from the GameLogs you follow, newest first — games they've
+          beaten, and the notes they've written. Read straight from their sites,
+          the same way Compare is. Add the shelves you follow on the Site tab.
+        </p>
+      </div>
+      <p class="cmp__status" id="fol-status" hidden></p>
+      <div id="fol-output"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="colophon">
+  <p id="colophon-text"></p>
+</footer>
+
+<!-- Phones only. The filters are moved in here rather than duplicated, so the
+     controls, their listeners and their state stay the single originals. -->
+<dialog id="filter-sheet" class="sheet" aria-label="Filter games">
+  <div class="sheet__head">
+    <h2 class="sheet__title">Filter</h2>
+    <button id="sheet-close" class="icon-button" type="button" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+  <div class="sheet__body" id="sheet-body"></div>
+  <div class="sheet__foot">
+    <button id="sheet-clear" class="pillbutton" type="button">Clear all</button>
+    <button id="sheet-apply" class="cmp__go" type="button">Show all</button>
+  </div>
+</dialog>
+
+<dialog id="detail" class="detail" aria-label="Game details">
+  <div class="detail__inner">
+    <button class="detail__close icon-button" type="button" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+      </svg>
+    </button>
+
+    <div class="detail__art">
+      <img id="detail-cover" class="detail__cover" alt="">
+    </div>
+
+    <div class="detail__body">
+      <p class="detail__eyebrow"><span id="detail-platform"></span><span id="detail-year"></span></p>
+      <h2 class="detail__title" id="detail-title"></h2>
+      <p class="detail__episode" id="detail-episode" hidden></p>
+      <p class="detail__verdict" id="detail-verdict" hidden></p>
+      <a class="detail__video" id="detail-video" href="#" target="_blank"
+         rel="noopener noreferrer" hidden>Watch the episode</a>
+      <ul class="detail__genres" id="detail-genres"></ul>
+      <p class="detail__description" id="detail-description"></p>
+      <dl class="detail__meta" id="detail-meta"></dl>
+      <p class="detail__notes" id="detail-notes" hidden></p>
+    </div>
+
+    <nav class="detail__nav">
+      <button id="detail-prev" class="detail__step" type="button" aria-label="Previous game">‹</button>
+      <button id="detail-next" class="detail__step" type="button" aria-label="Next game">›</button>
+    </nav>
+  </div>
+</dialog>
+
+<script src="assets/js/app.js" type="module"></script>
+</body>
+</html>
